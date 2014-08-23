@@ -29,3 +29,7 @@ SERVER RAILS Features
 * Simulation of a given visit to see how a person may have visited a site
 * Aggregation of data for average visit stayed
 
+NICE TO HAVES
+-------------
+* JS generation to generate script based on required tracking features
+* Authentication to restrict authorized websites
