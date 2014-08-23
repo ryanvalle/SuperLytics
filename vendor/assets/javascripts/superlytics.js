@@ -39,26 +39,29 @@ function captureMousePosition() {
 
 function captureClicks() {
 	$(document).on('click', '*', function(e) {
-		console.log('click')
 		e.stopPropagation()
 		click_item = {}
+		click_item["event"] = 'CLICKS'
 		click_item["DOM"] = $(this).html()
-		console.log(click_item.DOM)
 		click_item["time"] = SUPERLYTICS.CURRENT_TIME
-		console.log(click_item)
+		gotoWindow = $(this).attr('href') ? $(this).attr('href') : $(this).parents().closest($('a')).attr('href')
 		$.ajax({
 			type: "POST",
 			url: SUPERLYTICS.ENDPOINT,
 			data: click_item,
 			dataType: "JSON",
-			success: function () {
-				console.log('success')
+			success: function (data) {
+				if (gotoWindow) {
+					window.location.href = gotoWindow
+				}
 			},
 			error: function(data) {
-				//console.log(data)
-				console.log('error')
+				if (gotoWindow) {
+					window.location.href = gotoWindow
+				}
 			}
 		})
+		return false;
 	})
 }
 $(window).on('unload',function() {
