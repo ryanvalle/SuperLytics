@@ -1,7 +1,7 @@
 SUPERLYTICS = {
 	TIMER_DELAY: 1000,
 	CURRENT_TIME: 0,
-	URL: 'http://localhost:3001/',
+	ENDPOINT: 'http://localhost:3001/event/create',
 	KEY: 'KEY_TEMP',
 	SCROLL_ARRAY: [],
 	MOUSE_ARRAY: []
@@ -39,15 +39,31 @@ function captureMousePosition() {
 
 function captureClicks() {
 	$(document).on('click', '*', function(e) {
+		console.log('click')
 		e.stopPropagation()
 		click_item = {}
-		click_item["DOM"] = $(this)[0]
+		click_item["DOM"] = $(this).html()
+		console.log(click_item.DOM)
 		click_item["time"] = SUPERLYTICS.CURRENT_TIME
+		console.log(click_item)
+		$.ajax({
+			type: "POST",
+			url: SUPERLYTICS.ENDPOINT,
+			data: click_item,
+			dataType: "JSON",
+			success: function () {
+				console.log('success')
+			},
+			error: function(data) {
+				//console.log(data)
+				console.log('error')
+			}
+		})
 	})
 }
 $(window).on('unload',function() {
 	$.ajax({
-		url: SUPERLYTICS.URL,
+		url: SUPERLYTICS.ENDPOINT,
 		key: SUPERLYTICS.KEY,
 		data: 'data',
 		success: function() {
@@ -57,4 +73,8 @@ $(window).on('unload',function() {
 			console.log('oops')
 		}
 	})
+})
+$(document).ready(function() {
+	setCounter()
+	captureClicks()
 })

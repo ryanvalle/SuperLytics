@@ -23,5 +23,4 @@ class SiteRegistrationController < ApplicationController
 		def params_create
 			params.require(:site).permit(:url, :key)
 		end
-
 end
