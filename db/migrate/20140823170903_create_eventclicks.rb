@@ -4,7 +4,6 @@ class CreateEventclicks < ActiveRecord::Migration
       t.integer	:session_id
       t.integer	:clicktime
       t.text	:domclicked
-      t.string :key
 
       t.timestamps
     end

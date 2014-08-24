@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 20140823170903) do
     t.integer  "session_id"
     t.integer  "clicktime"
     t.text     "domclicked"
-    t.string   "key"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
